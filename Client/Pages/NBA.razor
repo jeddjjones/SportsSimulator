@@ -1,0 +1,71 @@
+﻿@page "/nba"
+@using SportsSimulator.Shared
+@using SportsSimulator.Shared.Models
+@using System.Reflection
+
+<PageTitle>NBA</PageTitle>
+<h1>NBA</h1>
+
+<div>
+	<h3>Build</h3>
+
+	<button @onclick="@BuildLineups">Build</button>
+</div>
+
+<strong>@lineups.Count()</strong>
+<hr />
+@if (fetching) {
+	<div>Building Lineups!!!!</div>
+}
+
+<table class="table-bordered">
+	@foreach (var lineup in lineups) {
+		<tr>
+			<td>
+				@lineup.ToCSV()
+			</td>
+			<td>
+				@lineup.TotalValue
+			</td>
+		</tr>
+	}
+</table>
+
+<hr />
+
+<div>
+	<a href="/addplayer"> Create New Player</a>
+	@if (playerList != null) {
+		<table class="table-bordered">
+			<thead>
+				<tr>
+					<th width="10%">Player ID</th>
+					<th width="10%">Enabled</th>
+					<th width="20%">Player Name</th>
+					<th width="10%">Team</th>
+					<th width="10%">Position</th>
+					<th width="10%">Salary</th>
+					<th width="10%">Proj. FP</th>
+					<th width="20%"></th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var p in playerList) {
+					<tr>
+						<td>@p.SitePlayerId</td>
+						<td>@p.Enabled</td>
+						<td>@p.PlayerName</td>
+						<td>@p.Position</td>
+						<td>@p.Team</td>
+						<td>@p.Salary</td>
+						<td>@p.FantasyPoints</td>
+						<td>
+							<a href="/editplayer/@p.PlayerId">Edit</a> |
+							<a href="/deleteplayer/@p.PlayerId">Delete</a>
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	}
+</div>

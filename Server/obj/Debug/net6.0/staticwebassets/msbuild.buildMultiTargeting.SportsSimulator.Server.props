@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\SportsSimulator.Server.props" />
+</Project>
