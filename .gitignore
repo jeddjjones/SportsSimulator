@@ -342,9 +342,14 @@ healthchecksdb
 
 # Backup folder for Package Reference Convert tool in Visual Studio 2017
 MigrationBackup/
-
-# DLL, PDB
 *.dll
-*.pdb
 
-.cache
+Client/bin/Debug/net6.0/wwwroot/_framework/
+
+Client/obj/Debug/net6.0/build-gz/
+
+Client/obj/Debug/net6.0/
+
+*.cache
+
+Client/bin/Debug/net6.0/wwwroot/
