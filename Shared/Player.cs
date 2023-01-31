@@ -18,6 +18,7 @@ namespace SportsSimulator.Shared.Models {
 		public decimal PointsPerSalary { get; set; }
 		public decimal PlayerValue { get; set; }
 		public bool Enabled { get; set; }
+		public string TeamCSS { get; set; } = null!;
 		[NotMapped]
 		public int PlayerNum { get; set; }
 	}
