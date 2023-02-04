@@ -1,159 +1,72 @@
-using SportsSimulator.Shared;
 using SportsSimulator.Shared.Models;
+using SportsSimulator.Shared;
 
-namespace SportsSimulator.Client.Pages
-{
-    public partial class NBA
-    {
-        private bool fetching;
-        private readonly int salaryCap = 50000;
-        private List<NbaLineup> lineups = new List<NbaLineup>();
-        List<Player> playerList = new List<Player>();
-        protected override async Task OnInitializedAsync()
-        {
-            playerList = await new PlayerService().GetPlayerList("NBA");
-        }
+namespace SportsSimulator.Client.Pages;
 
-        public void BuildLineups()
-        {
-            fetching = true;
-            var lineupInProgress = new NbaLineup(salaryCap);
-            var topValuePlayers = playerList.Where(x => x.Enabled).OrderByDescending(x => x.PlayerValue).Take(5);
-            foreach (var player1 in topValuePlayers)
-            {
-                lineupInProgress.RemoveToN(0);
-                var slotNum1 = lineupInProgress.CanDraft(player1);
-                Console.WriteLine("1: Can Draft: " + player1.PlayerName + " : " + slotNum1.ToString() + Environment.NewLine);
-                if (slotNum1 > -1)
-                {
-                    lineupInProgress.Add(player1, slotNum1);
-                }
+public partial class NBA {
 
-                var poolForSlot2 = lineupInProgress.GetPlayerPool(playerList);
-                foreach (var player2 in poolForSlot2)
-                {
-                    lineupInProgress.RemoveToN(1);
-                    var slotNum2 = lineupInProgress.CanDraft(player2);
-                    Console.WriteLine("2: Can Draft: " + player2.PlayerName + " : " + slotNum2.ToString() + Environment.NewLine);
-                    if (slotNum2 > -1)
-                    {
-                        lineupInProgress.Add(player2, slotNum2);
-                        var poolForSlot3 = lineupInProgress.GetPlayerPool(playerList);
-                        foreach (var player3 in poolForSlot3)
-                        {
-                            lineupInProgress.RemoveToN(2);
-                            var slotNum3 = lineupInProgress.CanDraft(player3);
-                            Console.WriteLine("3: Can Draft: " + player3.PlayerName + " : " + slotNum3.ToString() + Environment.NewLine);
-                            if (slotNum3 > -1)
-                            {
-                                lineupInProgress.Add(player3, slotNum3);
-                                var poolForSlot4 = lineupInProgress.GetPlayerPool(playerList);
-                                foreach (var player4 in poolForSlot4)
-                                {
-                                    lineupInProgress.RemoveToN(3);
-                                    var slotNum4 = lineupInProgress.CanDraft(player4);
-                                    Console.WriteLine("4: Can Draft: " + player4.PlayerName + " : " + slotNum4.ToString() + Environment.NewLine);
-                                    if (slotNum4 > -1)
-                                    {
-                                        lineupInProgress.Add(player4, slotNum4);
-                                        var poolForSlot5 = lineupInProgress.GetPlayerPool(playerList);
-                                        foreach (var player5 in poolForSlot5)
-                                        {
-                                            lineupInProgress.RemoveToN(4);
-                                            var slotNum5 = lineupInProgress.CanDraft(player5);
-                                            Console.WriteLine("5: Can Draft: " + player5.PlayerName + " : " + slotNum5.ToString() + Environment.NewLine);
-                                            if (slotNum5 > -1)
-                                            {
-                                                lineupInProgress.Add(player5, slotNum5);
-                                                var poolForSlot6 = lineupInProgress.GetPlayerPool(playerList);
-                                                foreach (var player6 in poolForSlot6)
-                                                {
-                                                    lineupInProgress.RemoveToN(5);
-                                                    var slotNum6 = lineupInProgress.CanDraft(player6);
-                                                    Console.WriteLine("6: Can Draft: " + player6.PlayerName + " : " + slotNum6.ToString() + Environment.NewLine);
-                                                    if (slotNum6 > -1)
-                                                    {
-                                                        lineupInProgress.Add(player6, slotNum6);
-                                                        var poolForSlot7 = lineupInProgress.GetPlayerPool(playerList);
-                                                        foreach (var player7 in poolForSlot7)
-                                                        {
-                                                            lineupInProgress.RemoveToN(6);
-                                                            var slotNum7 = lineupInProgress.CanDraft(player7);
-                                                            Console.WriteLine("7: Can Draft: " + player7.PlayerName + " : " + slotNum7.ToString() + Environment.NewLine);
-                                                            if (slotNum7 > -1)
-                                                            {
-                                                                lineupInProgress.Add(player7, slotNum7);
-                                                                var poolForSlot8 = lineupInProgress.GetPlayerPool(playerList);
-                                                                poolForSlot8 = poolForSlot8.Where(x => x.Salary >= lineupInProgress.RemainingSalary() - 500).ToList();
-                                                                foreach (var player8 in poolForSlot8)
-                                                                {
-                                                                    lineupInProgress.RemoveToN(7);
-                                                                    Console.WriteLine(lineupInProgress.LineupPlayers + Environment.NewLine);
-                                                                    var slotNum8 = lineupInProgress.CanDraft(player8);
-                                                                    Console.WriteLine("8: Can Draft: " + player8.PlayerName + " : " + slotNum8.ToString() + Environment.NewLine);
-                                                                    if (slotNum8 > -1)
-                                                                    {
-                                                                        lineupInProgress.Add(player8, slotNum8);
-                                                                        Console.WriteLine(lineupInProgress.LineupPlayers + Environment.NewLine);
-                                                                        var lineupPlayers = lineupInProgress.LineupPlayers;
-                                                                        if (lineupInProgress.IsValid() && !lineups.Select(x => x.LineupPlayers).Contains(lineupPlayers))
-                                                                        {
-                                                                            //valid lineup and not a duplicate, so add it				
-                                                                            var L = new NbaLineup(salaryCap);
-                                                                            var i = 0;
-                                                                            foreach (Player p in lineupInProgress.PlayersList.OrderBy(p => p.PlayerNum))
-                                                                            {
-                                                                                L.Add(p, i);
-                                                                                i++;
-                                                                            }
+	private List<NbaLineup> lineups = new List<NbaLineup>();
+	private List<Player> Players = new List<Player>();
+	private List<NBA_Stack> Stacks = new List<NBA_Stack>();
+	protected override async Task OnInitializedAsync() {
+		Players = await new PlayerService().GetPlayerList("NBA");
+		Stacks = await new NBA_StackService().GetStackList();
+	}
 
-                                                                            L.ToLineupString();
-                                                                            lineups.Add(L);
-                                                                            Console.WriteLine("LINEUP ADDED: " + L.LineupPlayers + Environment.NewLine);
-                                                                        }
-                                                                    }
-                                                                }
+	public void BuildLineups() {
 
-                                                                Console.WriteLine("Done looping player 8" + Environment.NewLine);
-                                                                Console.WriteLine("Lineups " + lineups.Count + Environment.NewLine);
-                                                            }
-                                                        }
+		foreach (var stack in Stacks) {
 
-                                                        Console.WriteLine("Done looping player 7" + Environment.NewLine);
-                                                        Console.WriteLine("Lineups " + lineups.Count + Environment.NewLine);
-                                                    }
-                                                }
+			var lineup = new NbaLineup(50000);
+			var pgid = stack.PG_PlayerId;
+			var pg = Players.FirstOrDefault(p => p.PlayerId == stack.PG_PlayerId);
+			lineup.Add(Players.FirstOrDefault(p => p.PlayerId == stack.PG_PlayerId), 0);
+			lineup.Add(Players.FirstOrDefault(p => p.PlayerId == stack.SG_PlayerId), 1);
+			lineup.Add(Players.FirstOrDefault(p => p.PlayerId == stack.SF_PlayerId), 2);
+			lineup.Add(Players.FirstOrDefault(p => p.PlayerId == stack.PF_PlayerId), 3);
+			lineup.Add(Players.FirstOrDefault(p => p.PlayerId == stack.C_PlayerId), 4);
 
-                                                Console.WriteLine("Done looping player 6" + Environment.NewLine);
-                                                Console.WriteLine("Lineups " + lineups.Count + Environment.NewLine);
-                                            }
-                                        }
-
-                                        Console.WriteLine("Done looping player 5" + Environment.NewLine);
-                                        Console.WriteLine("Lineups " + lineups.Count + Environment.NewLine);
-                                    }
-                                }
-
-                                Console.WriteLine("Done looping player 4" + Environment.NewLine);
-                                Console.WriteLine("Lineups " + lineups.Count + Environment.NewLine);
-                            }
-                        }
-
-                        Console.WriteLine("Done looping player 3" + Environment.NewLine);
-                        Console.WriteLine("Lineups " + lineups.Count + Environment.NewLine);
-                    }
-                }
-
-                Console.WriteLine("Done looping player 2" + Environment.NewLine);
-                Console.WriteLine("Lineups " + lineups.Count + Environment.NewLine);
-            }
-
-            Console.WriteLine("Done");
-            //lineups = lineups.Where(x => x.TotalValue > 63).OrderByDescending(x => x.TotalValue).ToList();
-            lineups = lineups.Take(100000).ToList();
-            var numlineups = lineups.Count;
-            fetching = false;
-            StateHasChanged();
-        }
-    }
+			var guardPool = lineup.GetPlayerPool(Players.Where(p => p.Position.Contains("G")).ToList());
+			foreach (var guard in guardPool) {
+				lineup.RemoveToN(5);
+				var guardSlot = lineup.CanDraft(guard);
+				if (guardSlot > -1) {
+					lineup.Add(guard, 5);
+					var forwardPool = lineup.GetPlayerPool(Players.Where(p => p.Position.Contains("F")).ToList());
+					foreach (var forward in forwardPool) {
+						lineup.RemoveToN(6);
+						var forwardSlot = lineup.CanDraft(forward);
+						if (forwardSlot > -1) {
+							lineup.Add(forward, 6);
+							var utilPool = lineup.GetPlayerPool(Players);
+							foreach (var util in utilPool) {
+								lineup.RemoveToN(7);
+								var utilSlot = lineup.CanDraft(util);
+								if (utilSlot > -1) {
+									lineup.Add(util, 7);
+									var lineupPlayers = lineup.LineupPlayers;
+									if (lineup.IsValid() && lineup.RemainingSalary() < 400 && !lineups.Select(x => x.LineupPlayers).Contains(lineupPlayers)) {
+										//valid lineup and not a duplicate, so add it				
+										var L = new NbaLineup(50000);
+										var i = 0;
+										foreach (Player p in lineup.PlayersList.OrderBy(p => p.PlayerNum)) {
+											L.Add(p, i);
+											i++;
+										}
+										L.ToLineupString();
+										lineups.Add(L);
+										Console.WriteLine("LINEUP ADDED: " + L.LineupPlayers + Environment.NewLine);
+										Console.WriteLine("LINEUPS TOTAL: " + lineups.Count + Environment.NewLine);
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		var numlineups = lineups.Count;
+		lineups = lineups.OrderByDescending(lineup => lineup.TotalValue).ToList();
+		StateHasChanged();
+	}
 }

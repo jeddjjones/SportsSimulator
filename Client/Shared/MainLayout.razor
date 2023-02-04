@@ -1,19 +1,17 @@
 ﻿@inherits LayoutComponentBase
 
-<MudThemeProvider/>
-<MudDialogProvider/>
-<MudSnackbarProvider/>
-
-
+<MudThemeProvider @ref="@_mudThemeProvider" @bind-IsDarkMode="@_isDarkMode" Theme="MyCustomTheme" />
+<MudDialogProvider />
+<MudSnackbarProvider />
 
 <MudLayout>
 	<MudAppBar Elevation="0">
-		<MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
-		<MudSpacer />
 		<MudIconButton Icon="@Icons.Custom.Brands.MudBlazor" Color="Color.Inherit" Link="https://mudblazor.com/" Target="_blank" />
-		<MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Link="https://github.com/MudBlazor/MudBlazor/" Target="_blank" />
+		<MudSpacer />
+		<MudIconButton Icon="@GetIcon()" Color="Color.Inherit" OnClick="@((e) => DarkModeToggle())" Class="mr-4" />		
+		<MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
 	</MudAppBar>
-	<MudDrawer @bind-Open="_drawerOpen" Elevation="1">
+	<MudDrawer @bind-Open="_drawerOpen" Elevation="1" Anchor="Anchor.Right">
 		<MudDrawerHeader>
 			<MudText Typo="Typo.h6">SimDFS</MudText>
 		</MudDrawerHeader>
@@ -27,9 +25,38 @@
 </MudLayout>
 
 @code {
-	bool _drawerOpen = true;
+	private bool _drawerOpen;
+	private bool _isDarkMode;
+	private MudThemeProvider? _mudThemeProvider;
 
-	void DrawerToggle() {
-		_drawerOpen = !_drawerOpen;
+	protected override async Task OnAfterRenderAsync(bool firstRender) {
+		if (firstRender) {
+			_isDarkMode = await _mudThemeProvider?.GetSystemPreference();
+			StateHasChanged();
+		}
 	}
+
+	string GetIcon() => _isDarkMode ? Icons.Material.Filled.LightMode : Icons.Material.Filled.DarkMode;
+
+	void DrawerToggle() => _drawerOpen = !_drawerOpen;
+
+	void DarkModeToggle() => _isDarkMode = !_isDarkMode;
+
+	MudTheme MyCustomTheme = new MudTheme() {
+			Palette = new Palette() {
+				Primary = Colors.Amber.Accent2,
+				Secondary = Colors.LightGreen.Accent3,
+				AppbarBackground = Colors.Amber.Accent2,
+			},
+			PaletteDark = new PaletteDark() {
+				Primary = Colors.Amber.Accent2,
+				Secondary = Colors.LightGreen.Accent3,
+				AppbarBackground = Colors.Amber.Accent2
+			},
+
+			LayoutProperties = new LayoutProperties() {
+				DrawerWidthLeft = "260px",
+				DrawerWidthRight = "300px"
+			}
+		};
 }

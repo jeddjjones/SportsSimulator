@@ -353,3 +353,17 @@ Client/obj/Debug/net6.0/
 *.cache
 
 Client/bin/Debug/net6.0/wwwroot/
+
+Client/bin/Debug/net6.0/
+
+Client/obj/
+
+Server/bin/Debug/net6.0/
+
+Server/obj/Debug/net6.0/
+
+Server/obj/
+
+Shared/obj/
+
+SportsSimulator.Test/obj/

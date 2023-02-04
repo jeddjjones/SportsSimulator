@@ -1,0 +1,134 @@
+﻿@page "/stacks"
+
+<h1>Stacks</h1>
+
+<h4>NBA</h4>
+
+<MudGrid>
+	<MudItem xs="2">
+		<strong>PG</strong>		
+	</MudItem>
+	<MudItem xs="2">
+		<strong>SG</strong>
+	</MudItem>
+	<MudItem xs="2">
+		<strong>SF</strong>
+	</MudItem>
+	<MudItem xs="2">
+		<strong>PF</strong>
+	</MudItem>
+	<MudItem xs="2">
+		<strong>C</strong>
+	</MudItem>
+	<MudItem xs="2">
+		
+	</MudItem>
+	@foreach (var stack in NBA_Stacks) {
+		<MudItem xs="2">
+			<MudMenu AnchorOrigin="Origin.BottomLeft" Dense="true">
+				<ActivatorContent>
+					<MudButton Variant="Variant.Text" EndIcon="@Icons.Material.Filled.ArrowDropDown">
+						@if (stack.PG_PlayerId > 0) {
+							<MudChip>
+								<!--get player-->
+							</MudChip>
+						} else {
+							<MudText>Select Player</MudText>
+						}
+					</MudButton>
+				</ActivatorContent>
+				<ChildContent>
+					@foreach (var player in NBA_Players.Where(p => p.Position.Contains("PG"))) { 
+						<MudText>@player.PlayerName</MudText>
+					}
+				</ChildContent>
+			</MudMenu>
+		</MudItem>
+		<MudItem xs="2">
+			<MudMenu AnchorOrigin="Origin.BottomLeft" Dense="true">
+				<ActivatorContent>
+					<MudButton Variant="Variant.Text" EndIcon="@Icons.Material.Filled.ArrowDropDown">
+						@if (stack.PG_PlayerId > 0) {
+							<MudChip>
+								<!--get player-->
+							</MudChip>
+						} else {
+							<MudText>Select Player</MudText>
+						}
+					</MudButton>
+				</ActivatorContent>
+				<ChildContent>
+					@foreach (var player in NBA_Players.Where(p => p.Position.Contains("SG"))) { 
+						<MudText>@player.PlayerName</MudText>
+					}
+				</ChildContent>
+			</MudMenu>
+		</MudItem>
+		<MudItem xs="2">
+			<MudMenu AnchorOrigin="Origin.BottomLeft" Dense="true">
+				<ActivatorContent>
+					<MudButton Variant="Variant.Text" EndIcon="@Icons.Material.Filled.ArrowDropDown">
+						@if (stack.PG_PlayerId > 0) {
+							<MudChip>
+								<!--get player-->
+							</MudChip>
+						} else {
+							<MudText>Select Player</MudText>
+						}
+					</MudButton>
+				</ActivatorContent>
+				<ChildContent>
+					@foreach (var player in NBA_Players.Where(p => p.Position.Contains("SF"))) {
+						<MudText>@player.PlayerName</MudText>
+					}
+				</ChildContent>
+			</MudMenu>
+		</MudItem>
+		<MudItem xs="2">
+			<MudMenu AnchorOrigin="Origin.BottomLeft" Dense="true">
+				<ActivatorContent>
+					<MudButton Variant="Variant.Text" EndIcon="@Icons.Material.Filled.ArrowDropDown">
+						@if (stack.PG_PlayerId > 0) {
+							<MudChip>
+								<!--get player-->
+							</MudChip>
+						} else {
+							<MudText>Select Player</MudText>
+						}
+					</MudButton>
+				</ActivatorContent>
+				<ChildContent>
+					@foreach (var player in NBA_Players.Where(p => p.Position.Contains("PF"))) { 
+						<MudText>@player.PlayerName</MudText>
+					}
+				</ChildContent>
+			</MudMenu>
+		</MudItem>
+		<MudItem xs="2">
+			<MudMenu AnchorOrigin="Origin.BottomLeft" Dense="true">
+				<ActivatorContent>
+					<MudButton Variant="Variant.Text" EndIcon="@Icons.Material.Filled.ArrowDropDown">
+						@if (stack.PG_PlayerId > 0) {
+							<MudChip>
+								<!--get player-->
+							</MudChip>
+						} else {
+							<MudText>Select Player</MudText>
+						}
+					</MudButton>
+				</ActivatorContent>
+				<ChildContent>
+					@foreach (var player in NBA_Players.Where(p => p.Position.Contains("C"))) {
+						<MudText>@player.PlayerName</MudText>
+					}
+				</ChildContent>
+			</MudMenu>
+		</MudItem>
+		<MudItem xs="2">
+			<MudIconButton Icon="@Icons.Material.Filled.Delete"></MudIconButton>
+		</MudItem>
+	}
+</MudGrid>
+
+<MudButton StartIcon="@Icons.Material.Filled.Add" Color="Color.Success" OnClick="@AddStack">Add</MudButton>
+
