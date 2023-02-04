@@ -38,8 +38,8 @@
 					</MudButton>
 				</ActivatorContent>
 				<ChildContent>
-					@foreach (var player in NBA_Players.Where(p => p.Position.Contains("PG"))) { 
-						<MudText>@player.PlayerName</MudText>
+					@foreach (var player in NBA_Players.Where(p => p.Position.Contains("PG"))) {
+						<MudChip Style="@player.TeamCSS">@player.PlayerName</MudChip>
 					}
 				</ChildContent>
 			</MudMenu>
@@ -58,8 +58,8 @@
 					</MudButton>
 				</ActivatorContent>
 				<ChildContent>
-					@foreach (var player in NBA_Players.Where(p => p.Position.Contains("SG"))) { 
-						<MudText>@player.PlayerName</MudText>
+					@foreach (var player in NBA_Players.Where(p => p.Position.Contains("SG"))) {
+						<MudChip Style="@player.TeamCSS">@player.PlayerName</MudChip>
 					}
 				</ChildContent>
 			</MudMenu>
@@ -79,7 +79,7 @@
 				</ActivatorContent>
 				<ChildContent>
 					@foreach (var player in NBA_Players.Where(p => p.Position.Contains("SF"))) {
-						<MudText>@player.PlayerName</MudText>
+						<MudChip Style="@player.TeamCSS">@player.PlayerName</MudChip>
 					}
 				</ChildContent>
 			</MudMenu>
@@ -99,7 +99,7 @@
 				</ActivatorContent>
 				<ChildContent>
 					@foreach (var player in NBA_Players.Where(p => p.Position.Contains("PF"))) { 
-						<MudText>@player.PlayerName</MudText>
+						<MudChip Style="@player.TeamCSS">@player.PlayerName</MudChip>
 					}
 				</ChildContent>
 			</MudMenu>
@@ -119,7 +119,7 @@
 				</ActivatorContent>
 				<ChildContent>
 					@foreach (var player in NBA_Players.Where(p => p.Position.Contains("C"))) {
-						<MudText>@player.PlayerName</MudText>
+						<MudChip Style="@player.TeamCSS">@player.PlayerName</MudChip>
 					}
 				</ChildContent>
 			</MudMenu>
