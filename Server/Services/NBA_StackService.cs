@@ -20,7 +20,7 @@ namespace SportsSimulator.Server.Services {
 		}
 
 		public void UpdateStack(NBA_Stack stack) {
-			_dbContext.Entry(stack).State = EntityState.Modified;
+			_dbContext.NBA_Stacks.Update(stack);
 			_dbContext.SaveChanges();
 		}
 
