@@ -89,27 +89,27 @@ public class NflLineup {
 	public string ToCSV() {
 		var flex = string.Empty;
 		var retValue = string.Empty;
-		retValue += _PlayersList.First(x => x.Position == "QB").PlayerName + ",";
+		retValue += _PlayersList.First(x => x.Position == "QB").PlayerNameWithId + ",";
 		var RBs = _PlayersList.Where(x => x.Position == "RB").ToList();
 		if (RBs.Count() == 3) {
-			flex = RBs[2].PlayerName;
+			flex = RBs[2].PlayerNameWithId;
 		}
-		retValue += RBs[0].PlayerName + ",";
-		retValue += RBs[1].PlayerName + ",";
+		retValue += RBs[0].PlayerNameWithId + ",";
+		retValue += RBs[1].PlayerNameWithId + ",";
 		var WRs = _PlayersList.Where(x => x.Position == "WR").ToList();
 		if (WRs.Count() == 4) {
-			flex = WRs[3].PlayerName;
+			flex = WRs[3].PlayerNameWithId;
 		}
-		retValue += WRs[0].PlayerName + ",";
-		retValue += WRs[1].PlayerName + ",";
-		retValue += WRs[2].PlayerName + ",";
+		retValue += WRs[0].PlayerNameWithId + ",";
+		retValue += WRs[1].PlayerNameWithId + ",";
+		retValue += WRs[2].PlayerNameWithId + ",";
 		var TEs = _PlayersList.Where(x => x.Position == "TE").ToList();
 		if (TEs.Count() == 2) {
-			flex = TEs[1].PlayerName;
+			flex = TEs[1].PlayerNameWithId;
 		}
-		retValue += TEs[0].PlayerName + ",";
+		retValue += TEs[0].PlayerNameWithId + ",";
 		retValue += flex + ",";
-		retValue += _PlayersList.First(x => x.Position == "DST").PlayerName;
+		retValue += _PlayersList.First(x => x.Position == "DST").PlayerNameWithId;
 		return retValue;
 	}
 }

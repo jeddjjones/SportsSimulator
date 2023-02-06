@@ -10,6 +10,7 @@ namespace SportsSimulator.Shared.Models {
 		public string Sport { get; set; } = null!;
 		public string SitePlayerId { get; set; } = null!;
 		public string PlayerName { get; set; } = null!;
+		public string PlayerNameWithId { get; set; } = null!;
 		public string Team { get; set; } = null!;
 		public string Opponent { get; set; } = null!;
 		public string Position { get; set; } = null!;

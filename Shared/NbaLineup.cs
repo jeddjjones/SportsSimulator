@@ -39,7 +39,7 @@ public class NbaLineup {
 	public void RemoveToN(int n) {
 		for (int i = 7; i >= 0; i--) {
 			if (_PlayersList[i].PlayerNum >= n) {
-				Console.Write("Removing: " + _PlayersList[i].PlayerName + " from spot " + i.ToString() + Environment.NewLine);
+				Console.Write("Removing: " + _PlayersList[i].PlayerNameWithId + " from spot " + i.ToString() + Environment.NewLine);
 				var player = new Player();
 				player.PlayerNum = -1;
 				_PlayersList[i] = player;
@@ -108,6 +108,7 @@ public class NbaLineup {
 		var maxAllowedSalary = SpotsAvailable == 1 ? RemainingSalary() : RemainingSalary() - neededAfterAdd;
 		var playerPool = currentPlayerPool.Where(x => !_PlayersList.Contains(x) &&
 																									x.Salary <= maxAllowedSalary);
+		//START - Comment out to allow more than 2 players per team
 		Dictionary<string, int> teams = new Dictionary<string, int>();
 		var teamsWithPlayerCount = _PlayersList.Where(x => !string.IsNullOrEmpty(x.SitePlayerId))
 																	  			 .GroupBy(x => x.Team)
@@ -123,6 +124,7 @@ public class NbaLineup {
 			// if there are not multiple teams with 2 players 
 			playerPool = playerPool.Where(x => !teamsWithPlayerCount.Where(x => x.Count > 1).Select(x => x.Team).Contains(x.Team));
 		}
+		//END - Comment out to allow more than 2 players per team
 
 		var noGuards = false;		
 		if (!string.IsNullOrEmpty(_PlayersList[0].SitePlayerId) && 
@@ -185,7 +187,7 @@ public class NbaLineup {
 	}
 
 	public string ToCSV() {
-		return String.Join(',', _PlayersList.Select(x => x.PlayerName).ToArray());
+		return String.Join(',', _PlayersList.Select(x => x.PlayerNameWithId).ToArray());
 	}
 
 }
