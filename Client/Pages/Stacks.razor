@@ -1,4 +1,5 @@
 ﻿@page "/stacks"
+@inject ISnackbar Snackbar
 
 <h1>Stacks</h1>
 
@@ -29,8 +30,8 @@
 				<ActivatorContent>
 					<MudButton Variant="Variant.Text" EndIcon="@Icons.Material.Filled.ArrowDropDown">
 						@if (stack.PG_PlayerId > 0) {
-							<MudChip>
-								<!--get player-->
+							<MudChip Style="@NBA_Players.FirstOrDefault(player => player.PlayerId == stack.PG_PlayerId)?.TeamCSS">
+								<strong>@NBA_Players.FirstOrDefault(player => player.PlayerId == stack.PG_PlayerId)?.PlayerName</strong>
 							</MudChip>
 						} else {
 							<MudText>Select Player</MudText>
@@ -39,7 +40,11 @@
 				</ActivatorContent>
 				<ChildContent>
 					@foreach (var player in NBA_Players.Where(p => p.Position.Contains("PG"))) {
-						<MudChip Style="@player.TeamCSS">@player.PlayerName</MudChip>
+						<MudMenuItem OnClick="@(() => AddPlayerToStack(player.PlayerId, stack, "PG"))">
+							<MudChip Style="@player.TeamCSS">
+								@player.PlayerName
+							</MudChip>
+						</MudMenuItem>
 					}
 				</ChildContent>
 			</MudMenu>
@@ -49,8 +54,8 @@
 				<ActivatorContent>
 					<MudButton Variant="Variant.Text" EndIcon="@Icons.Material.Filled.ArrowDropDown">
 						@if (stack.PG_PlayerId > 0) {
-							<MudChip>
-								<!--get player-->
+							<MudChip Style="@NBA_Players.FirstOrDefault(player => player.PlayerId == stack.SG_PlayerId)?.TeamCSS">
+								<strong>@NBA_Players.FirstOrDefault(player => player.PlayerId == stack.SG_PlayerId)?.PlayerName</strong>
 							</MudChip>
 						} else {
 							<MudText>Select Player</MudText>
@@ -59,7 +64,11 @@
 				</ActivatorContent>
 				<ChildContent>
 					@foreach (var player in NBA_Players.Where(p => p.Position.Contains("SG"))) {
-						<MudChip Style="@player.TeamCSS">@player.PlayerName</MudChip>
+						<MudMenuItem OnClick="@(() => AddPlayerToStack(player.PlayerId, stack, "SG"))">
+							<MudChip Style="@player.TeamCSS">
+								@player.PlayerName
+							</MudChip>
+						</MudMenuItem>
 					}
 				</ChildContent>
 			</MudMenu>
@@ -69,8 +78,8 @@
 				<ActivatorContent>
 					<MudButton Variant="Variant.Text" EndIcon="@Icons.Material.Filled.ArrowDropDown">
 						@if (stack.PG_PlayerId > 0) {
-							<MudChip>
-								<!--get player-->
+							<MudChip Style="@NBA_Players.FirstOrDefault(player => player.PlayerId == stack.SF_PlayerId)?.TeamCSS">
+								<strong>@NBA_Players.FirstOrDefault(player => player.PlayerId == stack.SF_PlayerId)?.PlayerName</strong>
 							</MudChip>
 						} else {
 							<MudText>Select Player</MudText>
@@ -79,7 +88,11 @@
 				</ActivatorContent>
 				<ChildContent>
 					@foreach (var player in NBA_Players.Where(p => p.Position.Contains("SF"))) {
-						<MudChip Style="@player.TeamCSS">@player.PlayerName</MudChip>
+						<MudMenuItem OnClick="@(() => AddPlayerToStack(player.PlayerId, stack, "SF"))">
+							<MudChip Style="@player.TeamCSS">
+								@player.PlayerName
+							</MudChip>
+						</MudMenuItem>
 					}
 				</ChildContent>
 			</MudMenu>
@@ -89,8 +102,8 @@
 				<ActivatorContent>
 					<MudButton Variant="Variant.Text" EndIcon="@Icons.Material.Filled.ArrowDropDown">
 						@if (stack.PG_PlayerId > 0) {
-							<MudChip>
-								<!--get player-->
+							<MudChip Style="@NBA_Players.FirstOrDefault(player => player.PlayerId == stack.PF_PlayerId)?.TeamCSS">
+								<strong>@NBA_Players.FirstOrDefault(player => player.PlayerId == stack.PF_PlayerId)?.PlayerName</strong>
 							</MudChip>
 						} else {
 							<MudText>Select Player</MudText>
@@ -98,8 +111,12 @@
 					</MudButton>
 				</ActivatorContent>
 				<ChildContent>
-					@foreach (var player in NBA_Players.Where(p => p.Position.Contains("PF"))) { 
-						<MudChip Style="@player.TeamCSS">@player.PlayerName</MudChip>
+					@foreach (var player in NBA_Players.Where(p => p.Position.Contains("PF"))) {
+						<MudMenuItem OnClick="@(() => AddPlayerToStack(player.PlayerId, stack, "PF"))">
+							<MudChip Style="@player.TeamCSS">
+								@player.PlayerName
+							</MudChip>
+						</MudMenuItem>
 					}
 				</ChildContent>
 			</MudMenu>
@@ -109,8 +126,8 @@
 				<ActivatorContent>
 					<MudButton Variant="Variant.Text" EndIcon="@Icons.Material.Filled.ArrowDropDown">
 						@if (stack.PG_PlayerId > 0) {
-							<MudChip>
-								<!--get player-->
+							<MudChip Style="@NBA_Players.FirstOrDefault(player => player.PlayerId == stack.C_PlayerId)?.TeamCSS">
+								<strong>@NBA_Players.FirstOrDefault(player => player.PlayerId == stack.C_PlayerId)?.PlayerName</strong>
 							</MudChip>
 						} else {
 							<MudText>Select Player</MudText>
@@ -119,7 +136,11 @@
 				</ActivatorContent>
 				<ChildContent>
 					@foreach (var player in NBA_Players.Where(p => p.Position.Contains("C"))) {
-						<MudChip Style="@player.TeamCSS">@player.PlayerName</MudChip>
+						<MudMenuItem OnClick="@(() => AddPlayerToStack(player.PlayerId, stack, "C"))">
+							<MudChip Style="@player.TeamCSS">
+								@player.PlayerName
+							</MudChip>
+						</MudMenuItem>
 					}
 				</ChildContent>
 			</MudMenu>
