@@ -31,7 +31,7 @@ namespace SportsSimulator.Shared {
 		}
 
 		public async Task Update(NBA_Stack stack) {
-			var response = await _httpClient.PutAsJsonAsync($"{_baseUri}/api/nba_stack", stack);
+			var response = await _httpClient.PutAsJsonAsync($"{_baseUri}api/nba_stack", stack);
 			response.EnsureSuccessStatusCode();
 		}
 
