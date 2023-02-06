@@ -1,6 +1,7 @@
 
 using SportsSimulator.Shared;
 using SportsSimulator.Shared.Models;
+using System.Linq.Expressions;
 
 namespace SportsSimulator.Client.Pages;
 
@@ -21,6 +22,30 @@ public partial class Stacks {
 		};
 		await StackService.Add(newStack);
 		NBA_Stacks = await StackService.GetStackList();
+		Snackbar.Add("Stack added!");
+		StateHasChanged();
+	}
+
+	private async void AddPlayerToStack(int playerId, NBA_Stack stack, string position) {
+		switch (position) {
+			case "PG":
+				stack.PG_PlayerId = playerId;
+				break;
+			case "SG":
+				stack.SG_PlayerId = playerId;
+				break;
+			case "SF":
+				stack.SF_PlayerId = playerId;
+				break;
+			case "PF":
+				stack.PF_PlayerId = playerId;
+				break;
+			case "C":
+				stack.C_PlayerId = playerId;
+				break;
+		}
+		await StackService.Update(stack);
+		Snackbar.Add("Stack updated!");
 		StateHasChanged();
 	}
 
