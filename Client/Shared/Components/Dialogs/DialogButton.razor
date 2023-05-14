@@ -1,0 +1,30 @@
+﻿@inject IDialogService DialogService
+@using MudBlazor
+@namespace SimWars.Shared.Components
+
+<MudButton @onclick="OpenDialog" Variant="Variant.Filled" Color="@Color">
+  @ChildContent
+</MudButton>
+
+@code {
+
+  [Parameter, EditorRequired] public string DialogType { get; set; } = string.Empty;
+  [Parameter] public Color Color { get; set; } = Color.Default;
+  [Parameter] public RenderFragment? ChildContent { get; set; }
+
+  private void OpenDialog() {
+    var options = new DialogOptions { CloseOnEscapeKey = true };
+    switch (DialogType) {
+      case "Info":
+        DialogService.Show<InfoDialog>(DialogType, options);
+        break;
+      case "Edit":
+        DialogService.Show<EditDialog>(DialogType, options);
+        break;
+      default:
+        DialogService.Show<InfoDialog>(DialogType, options);
+        break;
+    }    
+  }
+
+}

@@ -1,20 +1,18 @@
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using SportsSimulator.Server.Models;
-using SportsSimulator.Server.Services;
+using SimWars.Server.Models;
+using SimWars.Server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddDbContext<SportsSimulatorContext>
-  (options => options.UseSqlServer(builder.Configuration.GetConnectionString("SportsSimulatorSQL")));
+builder.Services.AddDbContext<SimWarsContext>
+  (options => options.UseSqlServer(builder.Configuration.GetConnectionString("SimWarsSQL")));
 
-builder.Services.AddTransient<IPlayerService, PlayerService>();
-builder.Services.AddTransient<ISlateService, SlateService>();
-builder.Services.AddTransient<IStackService, StackService>();
-builder.Services.AddTransient<INBA_StackService, NBA_StackService>();
+builder.Services.AddTransient<IStoreItemService, StoreItemService>();
+builder.Services.AddTransient<IStoreItemPrizeService, StoreItemPrizeService>();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();

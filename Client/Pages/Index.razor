@@ -1,9 +1,29 @@
 ﻿@page "/"
+@using SimWars.Client.Shared.Components
+@using SimWars.Shared.Components
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
+<MudGrid Spacing="1">
+  <MudItem xs="6" xl="3">
+    <Card Title="Store" Icon="@Icons.Material.Filled.ShoppingCart" />
+  </MudItem>
+  <MudItem xs="6" xl="3">
+    <Card Title="Team" Icon="@Icons.Material.Filled.Groups" />
+  </MudItem>
+  <MudItem xs="6" xl="3">
+    <Card Title="Play" Icon="@Icons.Material.Filled.SportsFootball" />
+  </MudItem>
+  <MudItem xs="6" xl="3">
+    <Card Title="Event" Icon="@Icons.Material.Filled.EmojiEvents" />
+  </MudItem>
+  <MudItem xs="6" xl="3">
+    <Card Title="League" Icon="@Icons.Material.Filled.List" />
+  </MudItem>
+  <MudItem xs="6" xl="3">
+    <Card Title="Account" Icon="@Icons.Material.Filled.AccountCircle" />
+  </MudItem>
+</MudGrid>
 
-Welcome to your new app.
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+

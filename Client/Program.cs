@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using SportsSimulator.Client;
+using SimWars.Client;
 using MudBlazor.Services;
 using MudBlazor;
 

@@ -1,0 +1,34 @@
+﻿@page "/store"
+@using SimWars.Client.Shared.Components
+@using SimWars.Shared
+@using SimWars.Shared.Components
+@using SimWars.Shared.Models
+
+<PageTitle>Store</PageTitle>
+
+<MudGrid>
+	@foreach (var item in storeItems) {
+		<MudItem xs="12" md="6">
+			<Card Title="@item.ShortName" Icon="@GetIcon(item.ShortName)" ActionText="@item.Cost.ToString()" InfoContent="View Odds" />
+		</MudItem>
+	}
+</MudGrid>
+
+@code {
+
+	private StoreItem storeItem = new StoreItem();
+	private List<StoreItem> storeItems = new List<StoreItem>();
+
+	protected override async Task OnInitializedAsync() {
+		await LoadStoreItems();
+	}
+
+	private async Task LoadStoreItems() => storeItems = await new StoreItemService().GetAll();
+	private string GetIcon(string item) {
+		if (item == "XP Box") return Icons.Material.Filled.TrendingUp;
+		if (item == "Skill Points Box") return Icons.Material.Filled.ExposurePlus1;
+		if (item == "Bonus Box") return Icons.Material.Filled.StarOutline;
+		return Icons.Material.Filled.Shield;
+	}
+
+}

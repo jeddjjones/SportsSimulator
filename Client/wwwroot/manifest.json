@@ -1,6 +1,6 @@
 {
-  "name": "SportsSimulator",
-  "short_name": "SportsSimulator",
+  "name": "SimWars",
+  "short_name": "SimWars",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#ffffff",
