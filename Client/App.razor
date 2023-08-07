@@ -1,12 +1,53 @@
-﻿<Router AppAssembly="@typeof(App).Assembly">
+﻿@using Blazored.LocalStorage
+@using SimWars.Shared.Common
+@using SimWars.Services.Auth
+@using Microsoft.AspNetCore.Components﻿
+
+<CascadingAuthenticationState>
+  <Router AppAssembly="@typeof(Program).Assembly">
     <Found Context="routeData">
-        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
-        <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+      <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(BaseLayout)">
+        <NotAuthorized>
+          @if (@context.User.Identity?.IsAuthenticated is true) {
+            <p>You are not authorized to be here.</p>
+          } 
+        </NotAuthorized>
+
+        <Authorizing>
+          <MudContainer MaxWidth="MaxWidth.Large" Class="d-flex align-center" Style="height: 100vh;">
+            <FetchingComponent/>
+          </MudContainer>
+        </Authorizing>
+
+      </AuthorizeRouteView>
     </Found>
     <NotFound>
-        <PageTitle>Not found</PageTitle>
-        <LayoutView Layout="@typeof(MainLayout)">
-            <p role="alert">Sorry, there's nothing at this address.</p>
-        </LayoutView>
+      <LayoutView Layout="@typeof(NotFound)">
+        <p>Sorry, there's nothing at this address.</p>
+      </LayoutView>
     </NotFound>
-</Router>
+  </Router>
+</CascadingAuthenticationState>
+
+@code {
+  [Inject] protected IAuthenticationApiService AuthApi { get; set; } = null!;
+  [Inject] public NavigationManager? NavigationManager { get; set; }
+  [Inject] private ILocalStorageService? LocalStorage { get; set; }
+
+
+  protected override async Task OnInitializedAsync() {
+    await base.OnInitializedAsync();
+    if (NavigationManager != null && (NavigationManager.Uri.Contains("forgot-password") ||
+                                      NavigationManager.Uri.Contains("reset-forgotten-password") ||
+                                      NavigationManager.Uri.Contains("accept-invite")))
+      return;
+    if (!await AuthApi.HasValidAuthToken()) {
+      var returnUrl = NavigationManager?.ToBaseRelativePath(NavigationManager.Uri);
+      if (returnUrl != null && LocalStorage != null) {
+        await LocalStorage.SetItemAsync(StorageConstants.ReturnUrl, returnUrl);
+      }
+
+      NavigationManager?.NavigateTo($"/login");
+    }
+  }
+}
