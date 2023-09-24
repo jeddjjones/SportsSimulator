@@ -14,7 +14,7 @@
   <DialogActions>
     <MudButton OnClick="Cancel">Cancel</MudButton>
     <MudButton Color="Color.Primary" OnClick="Purchase">
-      Purchase @Item?.Cost <img src="images/icons/cash.png" width="32" class="ml-2" />
+      @Item?.Cost <img src="images/icons/cash.png" width="32" class="ml-2" />
     </MudButton>
   </DialogActions>
 </MudDialog>
@@ -30,7 +30,6 @@
 		if (prize != null) {
 			Console.WriteLine(prize.PrizeName);
 			switch ((PrizeType)prize.PrizeType) {
-				//TODO: Change to use enum & change SQL field to int/id
 				case PrizeType.Cash:
 					//show & add cash to account
 					break;
