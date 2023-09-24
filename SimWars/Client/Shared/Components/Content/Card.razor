@@ -1,0 +1,44 @@
+﻿@inject IDialogService DialogService
+@using SimWars.Client.Shared.Components.Dialogs
+
+<MudCard @onclick="Click" Class="@(OnClick.HasDelegate ? "cursor-pointer" : string.Empty)">
+  <MudCardHeader>
+    <CardHeaderContent>
+      <MudText Typo="Typo.h6">@Title</MudText>
+    </CardHeaderContent>
+    <CardHeaderActions>
+      <MudIconButton Icon="@Icons.Material.Filled.ArrowRight" Color="Color.Default" />
+    </CardHeaderActions>
+  </MudCardHeader>
+  <MudCardContent Class="pt-0">
+    @if (!string.IsNullOrWhiteSpace(Icon)) {
+      <MudIcon Size="Size.Large" Icon="@Icon" Color="Color.Default" />
+    }
+    @if (!string.IsNullOrWhiteSpace(Image)) {
+      <MudImage Src="@Image" Width="80" />
+    }
+  </MudCardContent>
+  <MudCardActions>
+    <MudButton Variant="Variant.Text" Color="Color.Primary">@ActionText</MudButton>
+    @if (!string.IsNullOrWhiteSpace(InfoContent)) {
+      <MudSpacer />
+      <MudIconButton Icon="@Icons.Material.Filled.Info" Color="Color.Default" @onclick="OpenDialog" />
+    }
+  </MudCardActions>
+</MudCard>
+
+@code {
+  [Parameter] public string Title { get; set; } = string.Empty;
+  [Parameter] public string Icon { get; set; } = string.Empty;
+  [Parameter] public string Image { get; set; } = string.Empty;
+  [Parameter] public string ActionText { get; set; } = "Go";
+  [Parameter] public string InfoContent { get; set; } = string.Empty;
+  [Parameter] public EventCallback OnClick { get; set; }
+
+  private void Click() => OnClick.InvokeAsync();
+
+  private void OpenDialog() {
+    var options = new DialogOptions { CloseOnEscapeKey = true };
+    DialogService.Show<InfoDialog>("Info", options);
+  }
+}

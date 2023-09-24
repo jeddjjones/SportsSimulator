@@ -1,0 +1,95 @@
+﻿@inherits LayoutComponentBase
+
+
+<MudThemeProvider @ref="@_mudThemeProvider" @bind-IsDarkMode="@_isDarkMode" Theme="MyCustomTheme" />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+	<MudAppBar Elevation="0">
+		<MudIconButton Icon="@Icons.Material.Filled.Menu" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+		<MudIconButton Icon="@GetIcon()" OnClick="@((e) => DarkModeToggle())" Class="mr-4" />
+		<MudSpacer />
+		<MudIconButton Icon="@Icons.Material.Filled.AttachMoney" Color="Color.Primary" />
+		<MudText>1,928,458</MudText>
+		<MudIconButton Icon="@Icons.Material.Filled.Diamond" Color="Color.Tertiary" Class="ml-2" />
+		<MudText>18,348</MudText>
+	</MudAppBar>
+	<MudDrawer @bind-Open="_drawerOpen" Elevation="1">
+		<MudDrawerHeader Class="pl-1">
+			<MudImage Width="250" Src="images/simwars-logo-250-x-200.png" />
+		</MudDrawerHeader>
+		<NavMenu />
+	</MudDrawer>
+	<MudMainContent>
+		<MudContainer MaxWidth="MaxWidth.Large" Class="my-2 pt-2">
+			@Body
+		</MudContainer>
+	</MudMainContent>
+	<LoginDisplay />
+</MudLayout>
+
+@code {
+	private bool _drawerOpen = true;
+	private bool _isDarkMode = true;
+	private MudThemeProvider? _mudThemeProvider;
+
+	protected override async Task OnAfterRenderAsync(bool firstRender) {
+		if (firstRender) {
+			_isDarkMode = await _mudThemeProvider?.GetSystemPreference();
+			StateHasChanged();
+		}
+	}
+
+	string GetIcon() => _isDarkMode ? Icons.Material.Filled.LightMode : Icons.Material.Filled.DarkMode;
+
+	void DrawerToggle() => _drawerOpen = !_drawerOpen;
+
+	void DarkModeToggle() => _isDarkMode = !_isDarkMode;
+
+	MudTheme MyCustomTheme = new MudTheme() {
+		Palette = new Palette() {
+			Primary = Colors.LightGreen.Accent4,
+			Secondary = Colors.Amber.Accent2,
+			Tertiary = Colors.Cyan.Accent3,
+			AppbarText = Colors.Grey.Darken2,
+			TextPrimary = Colors.Grey.Darken2,
+			AppbarBackground = null
+		},
+		PaletteDark = new PaletteDark() {
+			Primary = Colors.LightGreen.Accent4,
+			Secondary = Colors.Amber.Accent2,
+			Tertiary = Colors.Cyan.Accent3
+		},
+		LayoutProperties = new LayoutProperties() {
+			DrawerWidthLeft = "260px",
+			DrawerWidthRight = "300px"
+		},
+		Typography = new Typography() {
+			H1 = new H1() {	
+				FontFamily = new[] { "Press Start 2P", "sans-serif" },
+				TextTransform = "uppercase" 
+			},
+			H2 = new H2() {
+				FontFamily = new[] { "Press Start 2P", "sans-serif" },
+				TextTransform = "uppercase" 
+			},
+			H3 = new H3() {
+				FontFamily = new[] { "Press Start 2P", "sans-serif" },
+				TextTransform = "uppercase"
+			},
+			H4 = new H4() {
+				FontFamily = new[] { "Press Start 2P", "sans-serif" },
+				TextTransform = "uppercase"
+			},
+			H5 = new H5() {
+				FontFamily = new[] { "Press Start 2P", "sans-serif" },
+				TextTransform = "uppercase"
+			},
+			H6 = new H6() {
+				FontFamily = new[] { "Press Start 2P", "sans-serif" },
+				TextTransform = "uppercase"
+			}
+		}
+	};	
+}

@@ -1,0 +1,60 @@
+﻿@using SimWars.Shared.Models;
+@using SimWars.Shared.Randomization;
+
+<MudDialog>
+  <DialogContent>
+    @if (Item != null) {
+      <div class="d-flex flex-column align-center">
+        <h1>@Item.ItemName</h1>
+        <p>@Item.ItemDescription</p>
+        <img src="@Item.ImageUrl" width="80" />
+      </div>
+    }    
+  </DialogContent>
+  <DialogActions>
+    <MudButton OnClick="Cancel">Cancel</MudButton>
+    <MudButton Color="Color.Primary" OnClick="Purchase">
+      Purchase @Item?.Cost <img src="images/icons/cash.png" width="32" class="ml-2" />
+    </MudButton>
+  </DialogActions>
+</MudDialog>
+
+@code {
+  [CascadingParameter] MudDialogInstance? MudDialog { get; set; }
+  [Parameter] public StoreItem? Item { get; set; }
+  [Parameter] public List<StoreItemPrize>? Prizes { get; set; }
+
+  private void Purchase() {
+		var rand = new RandomNumberGenerator().GetRandomNumber(100);
+		var prize = Prizes?.FirstOrDefault(x => x.OddsStart <= rand &&	x.OddsEnd >= rand);
+		if (prize != null) {
+			Console.WriteLine(prize.PrizeName);
+			switch ((PrizeType)prize.PrizeType) {
+				//TODO: Change to use enum & change SQL field to int/id
+				case PrizeType.Cash:
+					//show & add cash to account
+					break;
+				case PrizeType.Gem:
+					//show & add gems to account
+					break;
+				case PrizeType.Player:
+					//show & add player to account
+					break;
+				case PrizeType.SkillPoint:
+					//show & add skill points to account
+					break;
+				case PrizeType.XP:
+					//show & add the xp to account
+					break;
+				default:
+					//default case, prize type not known, what to do here?
+					break;
+			}
+		} else {
+			Console.WriteLine("Prize Not Found, random number was: " + rand);
+		}
+    //Open another dialog that shows prize
+  }
+
+	void Cancel() => MudDialog?.Cancel();
+}

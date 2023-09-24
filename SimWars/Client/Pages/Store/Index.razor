@@ -1,0 +1,43 @@
+﻿@page "/store"
+@using SimWars.Client.Shared.Components.Content
+@using SimWars.Shared.Models;
+@using SimWars.Shared;
+@inject IDialogService Dialog
+
+<PageTitle>Store</PageTitle>
+
+<MudGrid>
+	@foreach (var item in storeItems) {
+		<MudItem xs="12" md="6">
+			<Card Title="@item.ItemName" Image="@item.ImageUrl" 
+						ActionText="@item.Cost.ToString()" InfoContent="View Odds" OnClick="() => ShowItem(item.Id)" />
+		</MudItem>
+	}
+</MudGrid>
+
+@code {
+
+	private StoreItem storeItem = new StoreItem();
+	private List<StoreItem> storeItems = new List<StoreItem>();
+	private List<StoreItemPrize> storeItemPrizes = new List<StoreItemPrize>();
+
+	protected override async Task OnInitializedAsync() {
+		await LoadStoreItems();
+		await LoadStoreItemPrizes();
+	}
+
+	private async Task LoadStoreItems() => storeItems = await new StoreItemService().GetAll();
+	private async Task LoadStoreItemPrizes() => storeItemPrizes = await new StoreItemPrizeService().GetAll();
+
+	private void ShowItem(int storeItemId) {
+		var storeItem = storeItems.FirstOrDefault(x => x.Id == storeItemId);
+		var storeItemPrizeList = storeItemPrizes.Where(x => x.StoreItemId == storeItemId).ToList();
+		Dialog.Show<PurchaseItemDialog>("Purchase Item", 
+			new DialogParameters<PurchaseItemDialog> { { x => x.Item, storeItem }, { x => x.Prizes, storeItemPrizeList } },
+			new DialogOptions() { FullScreen = true, CloseButton = true });
+	}
+
+	private void OnPurchaseItem(int storeItemId) {
+		
+	}
+}

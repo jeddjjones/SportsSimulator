@@ -1,0 +1,75 @@
+﻿@page "/team/{TeamId}"
+@inject IDialogService DialogService
+@using SimWars.Client.Shared.Components.Dialogs;
+@using SimWars.Shared
+@using SimWars.Shared.Models
+
+<PageTitle>Team</PageTitle>
+
+<MudGrid>
+  <MudItem xs="12" md="2">
+    <MudImage Width="144" Src="images/team-logos/1.png" @onclick="OpenTeamLogoDialog" />
+  </MudItem>
+  <MudItem xs="12" md="10">
+   <MudItem xs="12">
+     <MudText Typo="Typo.h5">Springfield</MudText>
+   </MudItem>
+   <MudItem xs="12">
+     <MudText Typo="Typo.h5">Assassins</MudText>
+   </MudItem>
+  </MudItem>
+</MudGrid>
+
+
+<MudExpansionPanels Class="mt-6" MultiExpansion>
+  <MudExpansionPanel Text="QB" IsInitiallyExpanded>
+    Quarterbacks
+  </MudExpansionPanel>
+  <MudExpansionPanel Text="RB" IsInitiallyExpanded>
+    Running Backs
+  </MudExpansionPanel>
+  <MudExpansionPanel Text="WR" IsInitiallyExpanded>
+    Wide Receivers
+  </MudExpansionPanel>
+  <MudExpansionPanel Text="TE" IsInitiallyExpanded>
+    Tight Ends
+  </MudExpansionPanel>
+  <MudExpansionPanel Text="OL" IsInitiallyExpanded>
+    Offensive Linemen
+  </MudExpansionPanel>
+  <MudExpansionPanel Text="DL" IsInitiallyExpanded>
+    Defensive Linemen
+  </MudExpansionPanel>
+  <MudExpansionPanel Text="LB" IsInitiallyExpanded>
+    Linebackers
+  </MudExpansionPanel>
+  <MudExpansionPanel Text="DB" IsInitiallyExpanded>
+    Defensive Backs
+  </MudExpansionPanel>
+  <MudExpansionPanel Text="K/P" IsInitiallyExpanded>
+    Kickers/Punters
+  </MudExpansionPanel>
+</MudExpansionPanels>
+
+@code {
+  [Parameter] public int TeamId { get; set; }
+  private UserTeam userTeam = new();
+  private List<Player> players = new(); 
+  private bool _logoMenuActive;
+
+  protected override async Task OnInitializedAsync() {
+    await LoadUserTeam();
+    await LoadPlayers();
+  }
+
+  private async Task LoadUserTeam() => userTeam = await new UserTeamService().GetById(TeamId);
+  private async Task LoadPlayers() => players = await new PlayerService().GetAll();
+
+  private void OpenTeamLogoDialog() {
+    var options = new DialogOptions {
+      MaxWidth = MaxWidth.Large,
+      CloseOnEscapeKey = true 
+    };
+    DialogService.Show<TeamLogoDialog>("Select Logo", options);
+  }
+}

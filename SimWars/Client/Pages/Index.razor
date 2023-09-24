@@ -1,0 +1,27 @@
+﻿@page "/"
+@inject NavigationManager Navigation
+@using SimWars.Client.Shared.Components
+@using SimWars.Client.Shared.Components.Content
+
+<PageTitle>Home</PageTitle>
+
+<MudGrid Spacing="1">
+  <MudItem xs="6" xl="3">
+    <Card Title="Store" Icon="@Icons.Material.Filled.ShoppingCart" OnClick='() => Navigation.NavigateTo("store")' />
+  </MudItem>
+  <MudItem xs="6" xl="3">
+    <Card Title="Team" Icon="@Icons.Material.Filled.Groups" OnClick='() => Navigation.NavigateTo("team")' />
+  </MudItem>
+  <MudItem xs="6" xl="3">
+    <Card Title="Play" Icon="@Icons.Material.Filled.SportsFootball" OnClick='() => Navigation.NavigateTo("play")' />
+  </MudItem>
+  <MudItem xs="6" xl="3">
+    <Card Title="Event" Icon="@Icons.Material.Filled.EmojiEvents" OnClick='() => Navigation.NavigateTo("event")' />
+  </MudItem>
+  <MudItem xs="6" xl="3">
+    <Card Title="League" Icon="@Icons.Material.Filled.List" OnClick='() => Navigation.NavigateTo("league")' />
+  </MudItem>
+  <MudItem xs="6" xl="3">
+    <Card Title="Account" Icon="@Icons.Material.Filled.AccountCircle" OnClick='() => Navigation.NavigateTo("account")' />
+  </MudItem>
+</MudGrid>

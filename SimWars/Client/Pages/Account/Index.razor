@@ -1,0 +1,15 @@
+﻿@page "/account"
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject NavigationManager Navigation
+
+<PageTitle>My Account</PageTitle>
+
+<button class="nav-link btn btn-link" @onclick="BeginLogOut">Log out</button>
+
+
+@code {
+  private void BeginLogOut() {
+    Navigation.NavigateToLogout("authentication/logout");
+  }
+}

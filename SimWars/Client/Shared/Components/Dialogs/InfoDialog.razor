@@ -1,0 +1,16 @@
+﻿
+<MudDialog>
+  <DialogContent>
+    @ChildContent
+  </DialogContent>
+  <DialogActions>
+    <MudButton OnClick="Cancel">Close</MudButton>
+  </DialogActions>
+</MudDialog>
+
+@code {
+  [CascadingParameter] MudDialogInstance? MudDialog { get; set; }
+  [Parameter] public RenderFragment? ChildContent { get; set; }
+
+  void Cancel() => MudDialog?.Cancel();
+}

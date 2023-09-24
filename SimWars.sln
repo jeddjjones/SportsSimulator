@@ -1,20 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.3.32819.101
+VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimWars.Server", "Server\SimWars.Server.csproj", "{CF1993DF-361A-4A8F-AEC4-714DA627BC41}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimWars.Server", "SimWars\Server\SimWars.Server.csproj", "{BACC1B56-714B-4120-B45C-66A3B8406EEE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimWars.Client", "Client\SimWars.Client.csproj", "{E052BE89-1811-4211-9F9C-57946569F9F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimWars.Client", "SimWars\Client\SimWars.Client.csproj", "{33E338FF-12E2-4E03-ADEE-E75708929045}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimWars.Shared", "Shared\SimWars.Shared.csproj", "{CD1E2DBE-B16B-42BD-8FBB-6A055C8719CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimWars.Shared", "SimWars\Shared\SimWars.Shared.csproj", "{5BDFFA82-D30A-4DA1-9D97-4B5F9B5E1B1B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{05A5445E-209B-4E9D-A59B-6790ACFB79B1}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0AF20EDE-968A-43F5-8367-DFC62B0C13EF}"
 	ProjectSection(SolutionItems) = preProject
-		READMEtxt.txt = READMEtxt.txt
+		README.txt = README.txt
 	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimWars.Test", "SimWars.Test\SimWars.Test.csproj", "{609F442E-4B96-4C08-9A17-0E298A9BB674}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,27 +20,23 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{CF1993DF-361A-4A8F-AEC4-714DA627BC41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CF1993DF-361A-4A8F-AEC4-714DA627BC41}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CF1993DF-361A-4A8F-AEC4-714DA627BC41}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CF1993DF-361A-4A8F-AEC4-714DA627BC41}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E052BE89-1811-4211-9F9C-57946569F9F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E052BE89-1811-4211-9F9C-57946569F9F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E052BE89-1811-4211-9F9C-57946569F9F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E052BE89-1811-4211-9F9C-57946569F9F5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CD1E2DBE-B16B-42BD-8FBB-6A055C8719CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CD1E2DBE-B16B-42BD-8FBB-6A055C8719CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CD1E2DBE-B16B-42BD-8FBB-6A055C8719CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CD1E2DBE-B16B-42BD-8FBB-6A055C8719CD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{609F442E-4B96-4C08-9A17-0E298A9BB674}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{609F442E-4B96-4C08-9A17-0E298A9BB674}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{609F442E-4B96-4C08-9A17-0E298A9BB674}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{609F442E-4B96-4C08-9A17-0E298A9BB674}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BACC1B56-714B-4120-B45C-66A3B8406EEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BACC1B56-714B-4120-B45C-66A3B8406EEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BACC1B56-714B-4120-B45C-66A3B8406EEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BACC1B56-714B-4120-B45C-66A3B8406EEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33E338FF-12E2-4E03-ADEE-E75708929045}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33E338FF-12E2-4E03-ADEE-E75708929045}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33E338FF-12E2-4E03-ADEE-E75708929045}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33E338FF-12E2-4E03-ADEE-E75708929045}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BDFFA82-D30A-4DA1-9D97-4B5F9B5E1B1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BDFFA82-D30A-4DA1-9D97-4B5F9B5E1B1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BDFFA82-D30A-4DA1-9D97-4B5F9B5E1B1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BDFFA82-D30A-4DA1-9D97-4B5F9B5E1B1B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {1C7DF15B-CF4E-4D84-8485-DE4C6214347E}
+		SolutionGuid = {CD2282C6-3A8A-47E6-9B83-04E1896BD51D}
 	EndGlobalSection
 EndGlobal

@@ -1,0 +1,21 @@
+﻿@page "/team/player/{PlayerId}"
+
+<PageTitle>Team</PageTitle>
+
+<MudGrid>
+    <MudItem xs="12">
+        <MudPaper Class="d-flex align-center justify-center mud-width-full py-8">Player Card</MudPaper>
+    </MudItem>
+    <MudItem xs="6">
+        <MudPaper Class="d-flex align-center justify-center mud-width-full py-8">Ratings</MudPaper>
+    </MudItem>
+    <MudItem xs="6">
+        <MudPaper Class="d-flex align-center justify-center mud-width-full py-8">Skills</MudPaper>
+    </MudItem>
+</MudGrid>
+
+@code {
+  [Parameter] public int PlayerId { get; set; }
+
+  //TODO: Load player data
+}
